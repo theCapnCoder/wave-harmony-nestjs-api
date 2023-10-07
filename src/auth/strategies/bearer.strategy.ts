@@ -9,9 +9,8 @@ export class BearerStrategy extends PassportStrategy(Strategy) {
     super({ session: false });
   }
 
-  async validate(accessToken: string): Promise<any> {
-    const user = await this.authService.validateUserByToken(accessToken);
-    console.log('one');
+  async validate(token): Promise<any> {
+    const user = await this.authService.validateUserByToken(token);
     if (!user) {
       throw new UnauthorizedException();
     }
