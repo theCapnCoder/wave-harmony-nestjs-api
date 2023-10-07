@@ -7,8 +7,8 @@ import { UsersModule } from 'src/users/users.module';
 import { BearerStrategy } from './strategies/bearer.strategy';
 
 @Module({
-  imports: [PassportModule, UsersModule],
-  providers: [LocalStrategy, BearerStrategy, AuthService],
+  imports: [UsersModule, PassportModule],
+  providers: [AuthService, LocalStrategy, BearerStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
