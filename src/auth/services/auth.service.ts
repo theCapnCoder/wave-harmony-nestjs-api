@@ -7,7 +7,6 @@ export class AuthService {
 
   async validateUser(login: string, password: string): Promise<any> {
     const user = this.usersService.findByEmail(login);
-    console.log('eeeeeeee');
 
     if (user && user.password === password) {
       const result = Object.assign({}, user);
