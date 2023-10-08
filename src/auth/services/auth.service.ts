@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../../users/users.service';
+import { User, UsersService } from '../../users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async validateUser(login: string, password: string): Promise<any> {
+  async validateUser(login: string, password: string): Promise<User | null> {
     const user = this.usersService.findByEmail(login);
 
     if (user && user.password === password) {
@@ -16,7 +16,7 @@ export class AuthService {
     return null;
   }
 
-  async validateUserByToken(accessToken: string): Promise<any> {
+  async validateUserByToken(accessToken: string): Promise<User | null> {
     const user = this.usersService.findByAccessToken(accessToken);
 
     if (user) {
@@ -26,5 +26,11 @@ export class AuthService {
     }
 
     return null;
+  }
+
+  hasRole(user: User, roles: string[]): boolean {
+    return (
+      user.roles && user.roles.filter((role) => roles.includes(role)).length > 0
+    );
   }
 }

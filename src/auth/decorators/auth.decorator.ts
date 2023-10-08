@@ -1,8 +1,10 @@
-import { ExecutionContext, createParamDecorator } from '@nestjs/common';
+import { SetMetadata, UseGuards, applyDecorators } from '@nestjs/common';
+import { BearerAuthGuard } from '../guards/bearer.auth.guard';
+import { RolesGuard } from '../guards/roles.guard';
 
-export const AuthUser = createParamDecorator(
-  (data: unknown, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest();
-    return request.user;
-  },
-);
+export function Auth(...roles: string[]) {
+  return applyDecorators(
+    SetMetadata('roles', roles),
+    UseGuards(BearerAuthGuard, RolesGuard),
+  );
+}

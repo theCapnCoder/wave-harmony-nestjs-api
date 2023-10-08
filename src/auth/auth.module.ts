@@ -9,6 +9,7 @@ import { BearerStrategy } from './strategies/bearer.strategy';
 @Module({
   imports: [UsersModule, PassportModule],
   providers: [AuthService, LocalStrategy, BearerStrategy],
+  exports: [AuthService],
   controllers: [AuthController],
 })
 export class AuthModule {}
