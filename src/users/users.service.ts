@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 export type User = {
   id: number;
   email: string;
-  password: string;
+  password?: string;
   access_token: string;
   first_name: string | null;
   last_name: string | null;

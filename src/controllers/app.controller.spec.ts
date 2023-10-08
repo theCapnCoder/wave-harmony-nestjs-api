@@ -4,6 +4,13 @@ import { AppService } from '../services/app.service';
 
 describe('AppController', () => {
   let appController: AppController;
+  const user = {
+    id: 1,
+    first_name: 'test1',
+    last_name: 'test2',
+    access_token: null,
+    email: 'email',
+  };
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -15,8 +22,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "Hello test1 test2"', () => {
+      expect(appController.getHello(user)).toBe('Hello test1 test2!');
     });
   });
 });
