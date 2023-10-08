@@ -5,6 +5,7 @@ export type User = {
   email: string;
   password?: string;
   access_token: string;
+  roles: string[];
   first_name: string | null;
   last_name: string | null;
 };
@@ -17,6 +18,7 @@ export class UsersService {
       email: 'maks@test.com',
       password: 'pass',
       access_token: 'access1',
+      roles: ['admin', 'manager'],
       first_name: 'Maks',
       last_name: 'Petrov',
     },
@@ -25,6 +27,7 @@ export class UsersService {
       email: 'diane@test.com',
       password: 'pass',
       access_token: 'access2',
+      roles: ['user', 'guest'],
       first_name: 'Diane',
       last_name: 'Johnson',
     },
