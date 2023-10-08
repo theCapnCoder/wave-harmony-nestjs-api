@@ -8,6 +8,7 @@ describe('AppController', () => {
     id: 1,
     first_name: 'test1',
     last_name: 'test2',
+    roles: ['admin'],
     access_token: null,
     email: 'email',
   };

@@ -1,16 +1,22 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from '../services/app.service';
 import { User } from '../users/users.service';
-import { AuthUser } from 'src/auth/decorators/auth.decorator';
-import { BearerAuthGuard } from 'src/auth/guards/bearer.auth.guard';
+import { AuthUser } from 'src/auth/decorators/auth-user.decorator';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @UseGuards(BearerAuthGuard)
+  @Auth()
   @Get()
   getHello(@AuthUser() user: User): string {
+    return this.appService.getHello(user);
+  }
+
+  @Auth('admin')
+  @Get('/admin')
+  getHelloAdmin(@AuthUser() user: User): string {
     return this.appService.getHello(user);
   }
 }
