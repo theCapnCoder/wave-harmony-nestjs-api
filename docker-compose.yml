@@ -1,0 +1,40 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ./docker/api
+      dockerfile: Dockerfile
+    user: "node"
+    command: >
+      bash -c "npm i
+      && npm run orm-cli -- migration:run
+      && npm run seed:config
+      && npm run seed:run
+      && nest start --debug 0.0.0.0:9229 --watch --preserveWatchOutput"
+    volumes:
+      - .:/app
+    ports:
+      - '3003:3000'
+      - '9229:9229'
+    depends_on:
+      - db
+    environment:
+      TYPEORM_HOST: db
+      TYPEORM_PORT: 3306
+      TYPEORM_DATABASE: wave_local
+      TYPEORM_USERNAME: api
+      TYPEORM_PASSWORD: example
+    tty: true
+  db:
+    image: mysql:8
+    restart: always
+    user: root
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: api
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: wave_local
+    volumes:
+      - ./docker/dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
