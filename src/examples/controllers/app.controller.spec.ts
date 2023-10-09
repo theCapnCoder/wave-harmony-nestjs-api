@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from '../services/app.service';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from 'src/auth/services/auth.service';
+import { ExamplesController } from './app.controller';
+import { ExamplesService } from '../services/app.service';
 
 describe('AppController', () => {
-  let appController: AppController;
+  let appController: ExamplesController;
   const user = {
     id: 1,
     first_name: 'test1',
@@ -17,11 +17,11 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService, UsersService, AuthService],
+      controllers: [ExamplesController],
+      providers: [ExamplesService, UsersService, AuthService],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    appController = app.get<ExamplesController>(ExamplesController);
   });
 
   describe('root', () => {
